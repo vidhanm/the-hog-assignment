@@ -56,17 +56,18 @@ mocks/
 
 ## Configuration
 
-Edit `src/config/index.ts`:
+Settings use environment variables with defaults. To customize:
 
-```typescript
-export const MATCHING_CONFIG = {
-  threshold: 50,                 // Minimum score to notify
-  requiredSkillsWeight: 70,
-  preferredSkillsWeight: 20,
-  experienceWeight: 10,
-  experienceBufferYears: 1,      // ±1 year flexibility
-};
-```
+1. Copy `.env.example` to `.env`
+2. Adjust values as needed
+
+Available options:
+- `MATCH_THRESHOLD` - Minimum score to notify (default: 50)
+- `REQUIRED_SKILLS_WEIGHT` - Weight for required skills (default: 70)
+- `PREFERRED_SKILLS_WEIGHT` - Weight for preferred skills (default: 20)
+- `EXPERIENCE_WEIGHT` - Weight for experience match (default: 10)
+
+
 
 ## Architecture Principles
 
@@ -86,45 +87,22 @@ export const MATCHING_CONFIG = {
 
 ## Scaling to Production
 
-### Current POC → Production Roadmap
+**What needs to change:**
 
-**Phase 1: Data Persistence**
-- Add PostgreSQL/MongoDB for job and user storage
-- Implement job deduplication (hash job title + company + posted date)
-- Track notification history (avoid duplicate notifications)
+The current system uses mock JSON files and prints to console. For production, here's what I'd do:
 
-**Phase 2: Real Job Scraping**
-- Integrate job board APIs (LinkedIn, Indeed, Glassdoor)
-- Handle rate limiting and pagination
-- Implement incremental scraping (only fetch new jobs)
+**Data & APIs:**
+Replacing the mock JSON scraper with a API. Start Store everything in PostgreSQL - users, jobs, matches. Use Redis to track which jobs we've already seen so we don't spam users.
 
-**Phase 3: Multi-User Support**
-- Database schema for multiple users
-- Per-user notification preferences
-- Batch processing for efficiency
+**Multi-user:**
+Right now it's hardcoded to one user. Need a users table and process everyone's profile against new jobs each run. 
 
-**Phase 4: Production Scaling**
-- Horizontal scaling with load balancer
-- Caching layer (Redis) for frequent queries
-- Message queue (RabbitMQ/SQS) for async processing
-- Monitoring and alerting (Datadog, Sentry)
+**Better notifications:**
+Console logs don't work in production. Switch to email (SendGrid) or SMS (Twilio). Let users pick how they want to be notified.
 
-### Why This Architecture Scales
-
-**Modular Services:**
-- Each service can be scaled independently
-- Scraper can run on separate instances
-- Matcher can be parallelized across users
-
-**Interface-Based Design:**
-- Swap mock data → real API without changing matcher
-- Swap console → email/SMS notifications without changing matcher
-- Add new scrapers without modifying existing code
-
-**Stateless Design:**
-- No session data in memory
-- Horizontal scaling ready
-- Can deploy multiple instances behind load balancer
+**Reliability:**
+- Add retry logic for API failures
+- Set up error monitoring (Sentry)
 
 ## Tech Stack
 
