@@ -13,7 +13,7 @@ import type { Match, Resume, Job } from '../../src/types/index.js';
 
 describe('ConsoleNotifierService', () => {
   let notifier: ConsoleNotifierService;
-  let consoleSpy: jest.SpyInstance;
+  let consoleSpy: ReturnType<typeof jest.spyOn>;
 
   const mockResume: Resume = {
     userId: 'test-user-123',
@@ -31,7 +31,7 @@ describe('ConsoleNotifierService', () => {
   beforeEach(() => {
     notifier = new ConsoleNotifierService();
     // Spy on console.log to capture output
-    consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+    consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
   });
 
   afterEach(() => {
@@ -73,7 +73,7 @@ describe('ConsoleNotifierService', () => {
       expect(consoleSpy).toHaveBeenCalled();
 
       // Check that user's name appears in output
-      const output = consoleSpy.mock.calls.map((call) => call.join(' ')).join('\n');
+      const output = consoleSpy.mock.calls.map((call: any[]) => call.join(' ')).join('\n');
       expect(output).toContain('John Doe');
       expect(output).toContain('john@example.com');
       expect(output).toContain('Frontend Developer');
@@ -87,7 +87,7 @@ describe('ConsoleNotifierService', () => {
       expect(consoleSpy).toHaveBeenCalled();
 
       // Check that "no matches" message appears
-      const output = consoleSpy.mock.calls.map((call) => call.join(' ')).join('\n');
+      const output = consoleSpy.mock.calls.map((call: any[]) => call.join(' ')).join('\n');
       expect(output).toContain('No new job matches');
     });
 
@@ -147,7 +147,7 @@ describe('ConsoleNotifierService', () => {
 
       await notifier.notify(mockMatches, mockResume);
 
-      const output = consoleSpy.mock.calls.map((call) => call.join(' ')).join('\n');
+      const output = consoleSpy.mock.calls.map((call: any[]) => call.join(' ')).join('\n');
 
       // Both jobs should appear in output
       expect(output).toContain('Frontend Developer');

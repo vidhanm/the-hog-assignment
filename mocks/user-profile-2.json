@@ -1,0 +1,23 @@
+{
+  "userId": "user-456",
+  "profile": {
+    "name": "Sarah Chen",
+    "email": "sarah.chen@example.com",
+    "yearsOfExperience": 5
+  },
+  "skills": [
+    "Python",
+    "Django",
+    "PostgreSQL",
+    "REST APIs",
+    "Docker",
+    "AWS",
+    "Git",
+    "Machine Learning"
+  ],
+  "preferences": {
+    "minYearsRequired": 3,
+    "maxYearsRequired": 8,
+    "minSkillMatch": 3
+  }
+}

@@ -27,7 +27,7 @@ export const MATCHING_CONFIG: MatchingConfig = {
 
   /**
    * Allow user to be X years below job requirement
-   * Example: Job needs 5 years, user has 4 � still matches with buffer=1
+   * Example: Job needs 5 years, user has 4 years exp. still matches with buffer=1
    * This accounts for people growing into roles
    */
   experienceBufferYears: 1,
@@ -41,23 +41,6 @@ export const MOCK_DATA_PATHS = {
   resume: './mocks/user-profile.json',
 };
 
-/**
- * Application configuration
- */
-export const APP_CONFIG = {
-  /**
-   * Environment (development, production, test)
-   */
-  nodeEnv: process.env.NODE_ENV || 'development',
-
-  /**
-   * Trigger.dev API configuration
-   */
-  triggerDev: {
-    apiKey: process.env.TRIGGER_API_KEY,
-    apiUrl: process.env.TRIGGER_API_URL || 'https://api.trigger.dev',
-  },
-};
 
 /**
  * Validation: Ensure weights add up to 100
@@ -69,12 +52,6 @@ const totalWeight =
 
 if (totalWeight !== 100) {
   console.warn(
-    `�  Warning: Weights don't add up to 100 (current: ${totalWeight}). This may cause scoring issues.`
+    `Warning: Weights don't add up to 100 (current: ${totalWeight}). This may cause scoring issues.`
   );
 }
-
-/**
- * Export individual configs for convenience
- */
-export const { threshold, requiredSkillsWeight, preferredSkillsWeight, experienceWeight, experienceBufferYears } =
-  MATCHING_CONFIG;

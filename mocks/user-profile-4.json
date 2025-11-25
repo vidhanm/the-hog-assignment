@@ -1,0 +1,23 @@
+{
+  "userId": "user-321",
+  "profile": {
+    "name": "Emily Thompson",
+    "email": "emily.thompson@example.com",
+    "yearsOfExperience": 6
+  },
+  "skills": [
+    "AWS",
+    "Docker",
+    "Kubernetes",
+    "CI/CD",
+    "Terraform",
+    "Python",
+    "Node.js",
+    "Microservices"
+  ],
+  "preferences": {
+    "minYearsRequired": 4,
+    "maxYearsRequired": 10,
+    "minSkillMatch": 3
+  }
+}

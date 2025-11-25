@@ -1,0 +1,20 @@
+{
+  "userId": "user-789",
+  "profile": {
+    "name": "Mike Rodriguez",
+    "email": "mike.rodriguez@example.com",
+    "yearsOfExperience": 1
+  },
+  "skills": [
+    "React",
+    "JavaScript",
+    "HTML",
+    "CSS",
+    "Git"
+  ],
+  "preferences": {
+    "minYearsRequired": 0,
+    "maxYearsRequired": 2,
+    "minSkillMatch": 2
+  }
+}
