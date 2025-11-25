@@ -1,17 +1,11 @@
-import { runJobCheck } from './triggers/job-check.trigger.js';
-
-async function main() {
-  console.log('Starting manual job check...\n');
-
-  try {
-    await runJobCheck();
-    console.log('\nJob check completed successfully!');
-    process.exit(0);
-  } catch (error) {
-    console.error('\nJob check failed:', error);
-    process.exit(1);
-  }
-}
-
-// Run main function
-main();
+console.log('\n================================================================================');
+console.log('THE HOG ASSIGNMENT - JOB MATCHING SYSTEM');
+console.log('================================================================================\n');
+console.log('This project has been refactored to use Event-Driven Architecture with Trigger.dev.');
+console.log('\nTo run the system, please use the Trigger.dev CLI:');
+console.log('\n  npx trigger.dev@latest dev');
+console.log('\nThis will start the local development server and register the following tasks:');
+console.log('  - source-jobs (Runs every 2 minutes)');
+console.log('  - match-job   (Triggered by source-jobs)');
+console.log('  - notify-user (Triggered by match-job)');
+console.log('\n================================================================================\n');

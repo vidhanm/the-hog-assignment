@@ -4,11 +4,12 @@ Automated job matching system built with Node.js and Trigger.dev that notifies u
 
 ## Features
 
-- Weighted scoring algorithm (70% required skills, 20% preferred, 10% experience)
-- Configurable matching threshold (default: 50/100 points)
-- Experience-based filtering with ±1 year buffer
-- Case-insensitive skill matching
-- 15 comprehensive unit tests
+- **Event-Driven Architecture**: Decoupled tasks for sourcing, matching, and notifying.
+- **Weighted Scoring Algorithm**: 70% required skills, 20% preferred, 10% experience.
+- **Configurable Matching Threshold**: Default 50/100 points.
+- **Experience-based Filtering**: With ±1 year buffer.
+- **Case-insensitive Skill Matching**.
+- **15 Comprehensive Unit Tests**.
 
 ## Quick Start
 
@@ -19,12 +20,17 @@ npm install
 # Run tests
 npm test
 
-# Run demo (executes once)
-npm run demo
-
-# Run with Trigger.dev (scheduled every 2 minutes)
+# Run with Trigger.dev (Starts local dev server)
 npx trigger.dev@latest dev
 ```
+
+## Architecture
+
+The system uses an **Event-Driven Architecture** with three decoupled tasks:
+
+1.  **`source-jobs`** (Scheduled): Runs every 2 minutes. Fetches jobs from the source (currently mock JSON) and triggers a `match-job` task for each job found.
+2.  **`match-job`** (Triggered): Runs for a specific job. Matches it against all users. If a match is found, triggers `notify-user`.
+3.  **`notify-user`** (Triggered): Sends a notification to the user (currently logs to console).
 
 ## Project Structure
 
@@ -32,7 +38,10 @@ npx trigger.dev@latest dev
 src/
   ├── config/         # Configuration (thresholds, weights)
   ├── services/       # Business logic (scraper, matcher, notifier)
-  ├── triggers/       # Trigger.dev scheduled tasks
+  ├── triggers/       # Trigger.dev tasks
+  │   ├── source-jobs.trigger.ts
+  │   ├── match-job.trigger.ts
+  │   └── notify-user.trigger.ts
   └── types/          # TypeScript interfaces
 tests/
   └── services/       # Unit tests for all services
@@ -67,49 +76,10 @@ Available options:
 - `PREFERRED_SKILLS_WEIGHT` - Weight for preferred skills (default: 20)
 - `EXPERIENCE_WEIGHT` - Weight for experience match (default: 10)
 
-
-
-## Architecture Principles
-
-**Separation of Concerns:**
-- Scraper: Fetches job data
-- Matcher: Implements matching logic
-- Notifier: Handles user notifications
-
-**Dependency Injection:**
-- Services implement interfaces (IScraper, IMatcher, INotifier)
-- Easy to swap implementations (e.g., API scraper, email notifier)
-
-**SOLID Principles:**
-- Single Responsibility per service
-- Open/Closed via interfaces
-- Dependency Inversion through factory functions
-
-## Scaling to Production
-
-**What needs to change:**
-
-The current system uses mock JSON files and prints to console. For production, here's what I'd do:
-
-**Data & APIs:**
-Replacing the mock JSON scraper with a API. Start Store everything in PostgreSQL - users, jobs, matches. Use Redis to track which jobs we've already seen so we don't spam users.
-
-**Multi-user:**
-Right now it's hardcoded to one user. Need a users table and process everyone's profile against new jobs each run. 
-
-**Better notifications:**
-Console logs don't work in production. Switch to email (SendGrid) or SMS (Twilio). Let users pick how they want to be notified.
-
-**Reliability:**
-- Add retry logic for API failures
-- Set up error monitoring (Sentry)
-
 ## Tech Stack
 
 - **Runtime:** Node.js 18+
 - **Language:** TypeScript (strict mode)
 - **Scheduler:** Trigger.dev v4
 - **Testing:** Jest with ts-jest
-- **Architecture:** Service-oriented, dependency injection
-
-
+- **Architecture:** Event-Driven, Service-oriented
