@@ -1,0 +1,22 @@
+{
+  "userId": "user-123",
+  "profile": {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "yearsOfExperience": 3
+  },
+  "skills": [
+    "React",
+    "TypeScript",
+    "Node.js",
+    "AWS",
+    "PostgreSQL",
+    "REST APIs",
+    "Git"
+  ],
+  "preferences": {
+    "minYearsRequired": 0,   
+    "maxYearsRequired": 5,
+    "minSkillMatch": 3      
+  }
+}

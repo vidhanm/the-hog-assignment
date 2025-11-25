@@ -1,0 +1,35 @@
+[
+  {
+    "id": "job-1",
+    "title": "Junior Full Stack Developer",
+    "company": "TechCorp",
+    "postedAt": "2025-11-24T10:30:00Z",
+    "yearsExperienceRequired": 2,
+    "requiredSkills": ["React", "Node.js", "TypeScript", "Git"],
+    "preferredSkills": ["AWS", "Docker"],
+    "location": "Remote",
+    "salary": "$80k-$100k"
+  },
+  {
+    "id": "job-2",
+    "title": "Senior Backend Engineer",
+    "company": "StartupXYZ",
+    "postedAt": "2025-11-24T14:20:00Z",
+    "yearsExperienceRequired": 7, 
+    "requiredSkills": ["Go", "Kubernetes", "Microservices"],
+    "preferredSkills": ["Python"],
+    "location": "San Francisco",
+    "salary": "$150k-$180k"
+  },
+  {
+    "id": "job-3",
+    "title": "Frontend Developer",
+    "company": "DesignHub",
+    "postedAt": "2025-11-24T16:45:00Z",
+    "yearsExperienceRequired": 3,
+    "requiredSkills": ["React", "TypeScript", "CSS", "REST APIs"],
+    "preferredSkills": ["AWS", "PostgreSQL"],
+    "location": "Remote",
+    "salary": "$90k-$110k"
+  }
+]
